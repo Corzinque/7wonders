@@ -8,7 +8,8 @@ public class CardController : MonoBehaviour {
     Card card;
     // Use this for initialization
     void Start () {
-        card = new Card(1, 3, Card.CardTypes.Science);
+        //card = new Card(1, 3, Card.CardTypes.Science);
+        card = new Card();
 
         GameObject card_go = new GameObject();
         card_go.name = card.cardType + "_Card";

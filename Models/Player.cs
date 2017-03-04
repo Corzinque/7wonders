@@ -39,7 +39,7 @@ public class Player {
             this.rawScore = value;
         }
     }
-
+    /*
     public int[] PermanentResources {
         get {
             return permanentResources;
@@ -51,7 +51,7 @@ public class Player {
     }
 
     int[] permanentResources = new int[System.Enum.GetNames(typeof(Resources)).Length];
-
+    
     public int[] TemporaryResources {
         get {
             return temporaryResources;
@@ -61,7 +61,7 @@ public class Player {
             this.temporaryResources = value;
         }
     }
-
+    */
     public int MilitaryScore {
         get {
             return militaryScore;
@@ -101,8 +101,8 @@ public class Player {
             this.playerHand = value;
         }
     }
-
-    int[] temporaryResources = new int[System.Enum.GetNames(typeof(Resources)).Length];
+    /*
+    int[] temporaryResources = new int[System.Enum.GetNames(typeof(Resources)).Length];*/
     int militaryScore;
     int coins;
     List<Card> playerBoard;

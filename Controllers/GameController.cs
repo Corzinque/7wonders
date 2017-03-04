@@ -9,8 +9,10 @@ public class GameController : MonoBehaviour {
         protected set;
     }
 
-
     public int numberOfPlayers;
+
+    public List<Card> cardsAgeOne;
+
     //Player Sprite
     public Sprite playerSprite;
     //Cards sprites
@@ -22,7 +24,9 @@ public class GameController : MonoBehaviour {
     public Sprite commercialCardSprite;
     public Sprite guildCardSprite;
 
-    Dictionary<Card, GameObject> cardGameObjetMap;
+    Dictionary<Card, GameObject> cardGameObjectMap;
+    Dictionary<Player, GameObject> playerGameObjectMap;
+
 
     //The Game
     public Game TheGame {
@@ -38,16 +42,34 @@ public class GameController : MonoBehaviour {
         }
         Instance = this;
 
+
         //Create a game
         TheGame = new Game(numberOfPlayers);
-        cardGameObjetMap = new Dictionary<Card, GameObject>();
+        cardGameObjectMap = new Dictionary<Card, GameObject>();
+        playerGameObjectMap = new Dictionary<Player, GameObject>();
         TheGame.newGame();
+
+       
+            foreach ( Card card in cardsAgeOne )
+            {
+                Instantiate(card, transform.position, Quaternion.identity);
+            }
+        
+        foreach ( Player player in TheGame.Players )
+        {
+            Player player_data = player;
+            GameObject player_go = new GameObject();
+            playerGameObjectMap.Add(player_data, player_go);
+            player_go.name = "Player_" + player_data.PlayerNumber;
+            Canvas player_canvas = player_go.AddComponent<Canvas>();
+            player_go.transform.SetParent(this.transform, true);
+        }
         for ( int i = 0; i < TheGame.CardsAgeOne.Count; i++ )
         {
             //string cardName = "Card_" + i;
             Card card_data = TheGame.CardsAgeOne[i];
             GameObject card_go = new GameObject();
-            cardGameObjetMap.Add(card_data, card_go);
+            cardGameObjectMap.Add(card_data, card_go);
             card_go.name = card_data.cardName;
             card_go.transform.position = new Vector3(i % 2, i % 3, 0);
             card_go.transform.SetParent(this.transform, true);
@@ -64,7 +86,7 @@ public class GameController : MonoBehaviour {
 	}
 
     void setCardSprite(Card card_data) {
-        GameObject card_go = cardGameObjetMap[card_data];
+        GameObject card_go = cardGameObjectMap[card_data];
         switch ( card_data.cardType )
         {
             case Card.CardTypes.Civilian:
